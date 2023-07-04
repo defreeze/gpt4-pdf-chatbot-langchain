@@ -127,7 +127,7 @@ export default function Home() {
     <>
       <Layout>
         <div className="mx-auto flex flex-col gap-4">
-          <h1 className="text-2xl font-bold leading-[1.1] tracking-tighter text-center">
+          <h1 className="text-2xl font-bold leading-[1.1] tracking-tighter text-center text-blue-500">
             waypost.ai guide demo
           </h1>
           <main className={styles.main}>
@@ -154,7 +154,7 @@ export default function Home() {
                     icon = (
                       <Image
                         key={index}
-                        src="/usericon.png"
+                        src="/usericon2.png"
                         alt="Me"
                         width="30"
                         height="30"
