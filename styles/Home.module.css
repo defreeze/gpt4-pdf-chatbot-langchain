@@ -24,7 +24,7 @@
   font-size: 1.1rem;
   padding: 1rem 2rem 1rem 2rem;
   width: 75vw;
-  border-radius: 0.5rem;
+  border-radius: 1rem;
   border: 1px solid #d9d9e3;
   background: #ffffff;
   color: #000;
@@ -70,7 +70,7 @@
 }
 
 .generatebutton:hover {
-  background: #e4575726;
+  background: #0ad05626;
   border-radius: 0.2rem;
 }
 
@@ -96,12 +96,12 @@
 
 .usermessage {
   background: #ffffff;
-  padding: 1.5rem;
+  padding: 1rem;
   color: #000;
 }
 
 .usermessagewaiting {
-  padding: 1.5rem;
+  padding: 1rem;
   color: #000;
   background: linear-gradient(to left, #07080938, #1a1c2024, #07080936);
   background-size: 200% 200%;
@@ -115,6 +115,7 @@
   0% {
     background-position: -100% 0;
   }
+
   100% {
     background-position: 100% 0;
   }
@@ -122,7 +123,7 @@
 
 .apimessage {
   background: #f9fafb;
-  padding: 1.5rem;
+  padding: 1rem;
   color: #000;
   animation: fadein 0.5s;
 }
@@ -131,6 +132,7 @@
   from {
     opacity: 0;
   }
+
   to {
     opacity: 1;
   }
@@ -236,9 +238,11 @@
     width: 22rem;
     height: 28rem;
   }
+
   .textarea {
-    width: 22rem;
+    width: rem;
   }
+
   .topnav {
     border: 1px solid black;
     align-items: center;
@@ -247,7 +251,7 @@
 
   .navlogo {
     font-size: 1.25rem;
-    width: 20rem;
+    width: 1rem;
   }
 
   .markdownanswer code {
@@ -255,7 +259,7 @@
   }
 
   .footer {
-    font-size: 0.7rem;
+    font-size: 0.1rem;
     width: 100%;
     text-align: center;
   }

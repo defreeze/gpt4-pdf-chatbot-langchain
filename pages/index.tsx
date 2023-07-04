@@ -13,6 +13,9 @@ import {
   AccordionTrigger,
 } from '@/components/ui/accordion';
 
+// Set the flag (change it as per your requirement)
+const showSources = false; // If you set this to true, sources will be displayed.
+
 export default function Home() {
   const [query, setQuery] = useState<string>('');
   const [loading, setLoading] = useState<boolean>(false);
@@ -25,7 +28,7 @@ export default function Home() {
   }>({
     messages: [
       {
-        message: 'Hi, what would you like to learn about this document?',
+        message: 'Hi, how can i guide your way?',
         type: 'apiMessage',
       },
     ],
@@ -125,7 +128,7 @@ export default function Home() {
       <Layout>
         <div className="mx-auto flex flex-col gap-4">
           <h1 className="text-2xl font-bold leading-[1.1] tracking-tighter text-center">
-            Chat With Your Docs
+            waypost.ai guide demo
           </h1>
           <main className={styles.main}>
             <div className={styles.cloud}>
@@ -137,7 +140,8 @@ export default function Home() {
                     icon = (
                       <Image
                         key={index}
-                        src="/bot-image.png"
+                        //src="/images/waypost_icon.png"
+                        src="/waypost_icon2.png"
                         alt="AI"
                         width="40"
                         height="40"
@@ -174,7 +178,8 @@ export default function Home() {
                           </ReactMarkdown>
                         </div>
                       </div>
-                      {message.sourceDocs && (
+                      {showSources && message.sourceDocs && (
+                        // showSources defined in the beginning of the file. Set to true it will show sources
                         <div
                           className="p-5"
                           key={`sourceDocsAccordion-${index}`}
@@ -224,7 +229,7 @@ export default function Home() {
                     placeholder={
                       loading
                         ? 'Waiting for response...'
-                        : 'What is this legal case about?'
+                        : "Post here and I will guide your way"
                     }
                     value={query}
                     onChange={(e) => setQuery(e.target.value)}
@@ -261,8 +266,8 @@ export default function Home() {
           </main>
         </div>
         <footer className="m-auto p-4">
-          <a href="https://twitter.com/mayowaoshin">
-            Powered by LangChainAI. Demo built by Mayo (Twitter: @mayowaoshin).
+          <a href="https://waypost.ai">
+            developed by waypost.ai with ❤️
           </a>
         </footer>
       </Layout>
