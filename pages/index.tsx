@@ -141,7 +141,7 @@ export default function Home() {
                       <Image
                         key={index}
                         //src="/images/waypost_icon.png"
-                        src="/waypost_icon2.png"
+                        src="/waypost_icon3.png"
                         alt="AI"
                         width="40"
                         height="40"
