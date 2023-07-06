@@ -127,7 +127,7 @@ export default function Home() {
     <>
       <Layout>
         <div className="mx-auto flex flex-col gap-4">
-          <h1 className="text-2xl font-bold leading-[1.1] tracking-tighter text-center text-blue-500">
+          <h1 className="text-2xl font-bold leading-[1.1] tracking-tighter text-center text-green-500">
             waypost.ai guide demo
           </h1>
           <main className={styles.main}>
