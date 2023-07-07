@@ -20,7 +20,7 @@
     "@pinecone-database/pinecone": "0.0.14",
     "@radix-ui/react-accordion": "^1.1.1",
     "clsx": "^1.2.1",
-    "dotenv": "^16.0.3",
+    "dotenv": "^16.3.1",
     "get-tsconfig": "^4.6.2",
     "gremlin": "^3.6.4",
     "langchain": "0.0.82",
