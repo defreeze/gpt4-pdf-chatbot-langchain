@@ -26,25 +26,39 @@ export default async function handler(
   const sanitizedQuestion = question.trim().replaceAll('\n', ' ');
 
 
-  /*
+
   const gremlin = require('gremlin');
-  const { CosmosClient } = require('@azure/cosmos');
+  async function executeGremlinQuery(query: any) {
+    const endpoint = 'wss://plusdatabase.gremlin.cosmos.azure.com:443';
+    const key = 'Tn0VsSxCcH98TmcVpGzELezFsXHnpuWF4XcRgNiSoA1pOL59B1EDjkESKWuMOWqcQa4kZqtrFIAaACDblz5DGw==';
+    const database = 'websiteDEMO';
+    const container = 'webpages';
+    const authenticator = new gremlin.driver.auth.PlainTextSaslAuthenticator(`/dbs/${database}/colls/${container}`, key);
 
-  // Function to execute the Gremlin query against Cosmos DB
-  async function executeGremlinQuery(query) {
-    const endpoint = 'your_cosmosdb_endpoint';
-    const key = 'your_cosmosdb_primary_key';
-    const database = 'your_cosmosdb_database';
-    const container = 'your_cosmosdb_container';
+    const client = new gremlin.driver.Client(
+      endpoint,
+      {
+        authenticator,
+        traversalsource: "g",
+        rejectUnauthorized: true,
+        mimeType: "application/vnd.gremlin-v2.0+json"
+      }
+    );
 
-    const client = new CosmosClient({ endpoint, key });
-    const { database: db } = await client.databases.createIfNotExists({ id: database });
-    const { container: cntnr } = await db.containers.createIfNotExists({ id: container });
-
-    const { resources: results } = await cntnr.items.query(query, { enableCrossPartitionQuery: true }).fetchAll();
-    return results;
+    return new Promise((resolve, reject) => {
+      client.submit(query, {})
+        .then((result: any) => {
+          resolve(result.toArray());
+        })
+        .catch((error: any) => {
+          reject(error);
+        })
+        .finally(() => {
+          client.close();
+        });
+    });
   }
-  */
+
 
   try {
     const index = pinecone.Index(PINECONE_INDEX_NAME);
@@ -67,35 +81,27 @@ export default async function handler(
       chat_history: history || [],
     });
 
-    // method to extract and send metadata
-    // const matchingDocument = response.data[0];
-    // const metadata = matchingDocument.meta;
-
-    /*
-  // Execute the Gremlin query
     const query = `
-      g.V().hasLabel('webpages').has('webpages', 'UI Settings')
-      .repeat(bothE('button').otherV())
-      .until(hasLabel('webpages').has('webpages', 'GeniusPLUS launch'))
-      .path().by(valueMap('webpages')).by(valueMap('subLabel', 'label'))
-      .limit(1)
-    `;
-    const results = await executeGremlinQuery(query);
+    g.V().hasLabel('webpages').has('webpages', 'UI Settings')
+    .repeat(bothE('button').otherV())
+    .until(hasLabel('webpages').has('webpages', 'GeniusPLUS launch'))
+    .path().by(valueMap('webpages')).by(valueMap('subLabel', 'label'))
+    .limit(1)
+  `;
+    const results: any = await executeGremlinQuery(query);
+    //console.log('Results from CosmosDB:', results);
 
-    // Process the results and extract the desired information
-    const cosmosdbResult = {
-      startPage: results[0]['objects'][0]['webpages'][0],
-      goalPage: results[0]['objects'][results[0]['objects'].length - 1]['webpages'][0],
-      buttonClicks: results[0]['objects']
-        .slice(1, -1)
-        .filter((edge) => 'subLabel' in edge)
-        .map((edge) => edge['subLabel']),
-    };
+    console.log('Individual Objects:');
+    const objectsArray = results[0].objects;
+    objectsArray.forEach((object: any, index: any) => {
+      console.log(`Object ${index + 1}:`, object);
+    });
 
-    res.status(200).json(cosmosdbResult);
-    */
-
-    // res.status(200).json(metadata);
+    // method to extract and send metadata
+    response.sourceDocuments.forEach((document: any, index: any) => {
+      const source = document.metadata.source;
+      console.log(`Metadata for Document ${index + 1}:`, source);
+    });
 
     console.log('response', response);
     res.status(200).json(response);

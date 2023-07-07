@@ -15,12 +15,14 @@
     "ingest": "tsx -r dotenv/config scripts/ingest-data.ts"
   },
   "dependencies": {
+    "@azure/cosmos": "^3.17.3",
     "@microsoft/fetch-event-source": "^2.0.1",
     "@pinecone-database/pinecone": "0.0.14",
     "@radix-ui/react-accordion": "^1.1.1",
     "clsx": "^1.2.1",
     "dotenv": "^16.0.3",
     "get-tsconfig": "^4.6.2",
+    "gremlin": "^3.6.4",
     "langchain": "0.0.82",
     "lucide-react": "^0.125.0",
     "next": "13.2.3",
