@@ -48,20 +48,35 @@ export default async function handler(
       chat_history: history || [],
     });
 
-    const StartPage = 'overview';
-    const GoalPage = 'leave';
-    const query = generateQuery(StartPage, GoalPage);
-    const results: any = await executeGremlinQuery(query);
+    var StartPage = 'overview';
+    var GoalPage = 'sdfsdf';
 
-    if (results && results.length > 0 && results[0].objects) {
-      console.log('Individual Objects:');
-      const objectsArray = results[0].objects;
-      objectsArray.forEach((object: any, index: any) => {
-        console.log(`Object ${index + 1}:`, object);
-      });
-    } else {
-      console.log('No results found.');
+    const timeoutDuration = 5000; // Timeout duration in milliseconds
+    const query = generateQuery(StartPage, GoalPage);
+    const executionPromise = executeGremlinQuery(query);
+
+    const timeoutPromise = new Promise((resolve, reject) => {
+      setTimeout(() => {
+        reject(new Error('Execution timed out.'));
+      }, timeoutDuration);
+    });
+
+    try {
+      const results = await Promise.race([executionPromise, timeoutPromise]);
+
+      if (results && results.length > 0 && results[0].objects) {
+        console.log('Individual Objects:');
+        const objectsArray = results[0].objects;
+        objectsArray.forEach((object: any, index: any) => {
+          console.log(`Object ${index + 1}:`, object);
+        });
+      } else {
+        console.log('No results found.');
+      }
+    } catch (error) {
+      console.error('An error occurred:', error);
     }
+
 
     // method to extract and send metadata
     response.sourceDocuments.forEach((document: any, index: any) => {
