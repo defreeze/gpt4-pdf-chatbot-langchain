@@ -51,11 +51,11 @@ export default async function handler(
     var StartPage = 'overview';
     var GoalPage = 'sdfsdf';
 
-    const timeoutDuration = 5000; // Timeout duration in milliseconds
+    const timeoutDuration = 2000; // Timeout duration in milliseconds
     const query = generateQuery(StartPage, GoalPage);
     const executionPromise = executeGremlinQuery(query);
 
-    const timeoutPromise = new Promise((resolve, reject) => {
+    const timeoutPromise = new Promise((reject) => {
       setTimeout(() => {
         reject(new Error('Execution timed out.'));
       }, timeoutDuration);
@@ -77,12 +77,18 @@ export default async function handler(
       console.error('An error occurred:', error);
     }
 
-
+    /*
     // method to extract and send metadata
     response.sourceDocuments.forEach((document: any, index: any) => {
       const source = document.metadata.source;
       console.log(`Metadata for Document ${index + 1}:`, source);
     });
+    */
+    const topDocument = response.sourceDocuments[0]; // Get the first document
+    const fileName = topDocument.metadata.source.split('\\').pop().replace('.pdf', ''); // Extract the file name without the extension
+    console.log('Top webpage name:', fileName);
+
+
 
     console.log('response', response);
     res.status(200).json(response);
