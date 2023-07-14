@@ -139,5 +139,6 @@ if __name__ == "__main__":
     asyncio.get_event_loop().run_until_complete(main())
 
 # how to run it:
-#  python webscraper.py https://www.waypost.ai/demo/dashboard same_websites
+# python webscraper.py https://www.waypost.ai/demo/dashboard same_websites
 # same_websites means it only evaluates urls from that particular website, not external links
+# currently only same_websites == true is relevant
